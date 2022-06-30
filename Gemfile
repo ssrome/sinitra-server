@@ -11,3 +11,5 @@ gem "rspec", "~> 3.11"
 gem "sinatra", "~> 2.2"
 
 gem "sinatra-contrib", "~> 2.2"
+
+gem "rack-test", "~> 2.0"
