@@ -8,3 +8,7 @@ get '/:name?' do |name|
     "Hello, it's nice to meet you!"
     end
 end
+
+get "/page/multiverse" do
+    erb :index
+end
