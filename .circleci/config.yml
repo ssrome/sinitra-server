@@ -23,8 +23,7 @@ jobs:
 
       - run: gem install bundler
       - run: bundle install
-      - run: ruby/install-deps
-      - run: ruby/rspec-test
+      - run: bundle exec rspec
       # - run:
       #     command: bundle install --path vendor/bundle
           # command: bundle config set --local path 'vendor/bundle' 
