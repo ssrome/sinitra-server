@@ -20,7 +20,8 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - run:
-          command: bundle install --path vendor/bundle
+          #command: bundle install --path vendor/bundle
+          command: bundle config set --local path 'vendor/bundle'
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
