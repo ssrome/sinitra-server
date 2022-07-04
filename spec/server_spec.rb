@@ -1,10 +1,10 @@
 ENV['APP_ENV'] = 'test'
 
-require_relative "../server"
+require_relative "../index"
 require "rspec"
 require "rack/test"
 
-RSpec.describe "server" do
+RSpec.describe "index" do
     include Rack::Test::Methods
 
     def app
