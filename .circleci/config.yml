@@ -20,8 +20,12 @@ jobs:
       - run:
           name: Which bundler?
           command: bundle -v
-      - run:
-          command: bundle install --path vendor/bundle
+
+      - run: gem install bundler
+      - run: ruby/install-deps
+      - run: ruby/rspec-test
+      # - run:
+      #     command: bundle install --path vendor/bundle
           # command: bundle config set --local path 'vendor/bundle' 
 
 # Invoke jobs via workflows
