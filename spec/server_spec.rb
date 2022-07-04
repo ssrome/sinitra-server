@@ -4,7 +4,7 @@ require_relative "../index"
 require "rspec"
 require "rack/test"
 
-RSpec.describe "index" do
+RSpec.describe "App" do
     include Rack::Test::Methods
 
     def app
@@ -50,6 +50,10 @@ RSpec.describe "index" do
         it "returns information about page" do
             get "/page/multiverse"
             expect(last_response.body).to include("grandma")
+        end
+        it "returns the day" do
+            get "/page/multiverse"
+            expect(last_response.body).to include("Monday")
         end
     end
 end 
