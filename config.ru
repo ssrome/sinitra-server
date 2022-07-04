@@ -1,2 +1,2 @@
-require './lib/index'
+require './server'
 run Sinatra::Application
