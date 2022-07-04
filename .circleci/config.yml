@@ -21,8 +21,8 @@ jobs:
           name: Which bundler?
           command: bundle -v
 
-      # - run: gem install bundler
-      # - run: bundle install
+      - run: gem install bundler
+      - run: bundle install --path vendor/bundle
       - run: bundle exec rspec
       # - run:
       #     command: bundle install --path vendor/bundle
