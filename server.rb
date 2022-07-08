@@ -8,3 +8,5 @@ get "/:name?" do |name|
         erb :index, :locals => {:name=>""}
     end
 end
+
+# https://www.boredapi.com/api/activity
