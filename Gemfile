@@ -17,3 +17,5 @@ gem "sinatra-contrib", "~> 2.2"
 gem "rack-test", "~> 2.0"
 
 gem "puma"
+
+gem "observr", "~> 1.0"

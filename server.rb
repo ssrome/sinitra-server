@@ -18,7 +18,7 @@ def getBody(req)
     return JSON.parse(req.body.read)
 end
 
-posts = [{title: "First post", body: "content of first post"}]
+posts = [{title: "First post", body: "content of first post"}, {title: "second post", body: "content of second post"}]
 
 get "/api/posts" do
     return posts.to_json
