@@ -12,7 +12,6 @@ end
 # https://www.boredapi.com/api/activity
 
 
-## Custom Method for Getting Request body
 def getBody(req)
     req.body.rewind
     return JSON.parse(req.body.read)
@@ -37,4 +36,22 @@ post "/api/posts" do
     posts.push(new_post)
 
     return new_post.to_json
+end
+
+put "/api/posts/:id" do
+    id = params["id"].to_i
+    body = getBody(request)
+
+    posts[id][:title] = body["title"]
+    posts[id][:body] = body["body"]
+
+    return posts[id].to_json
+end
+
+delete "/api/posts/:id" do
+    id = params["id"].to_i
+
+    post = posts.delete_at(id)
+
+    return post.to_json
 end
