@@ -19,3 +19,5 @@ gem "rack-test", "~> 2.0"
 gem "puma"
 
 gem "observr", "~> 1.0"
+
+gem "pg", "~> 1.4"
