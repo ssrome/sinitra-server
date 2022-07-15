@@ -21,3 +21,5 @@ gem "puma"
 gem "observr", "~> 1.0"
 
 gem "pg", "~> 1.4"
+
+gem "dotenv", "~> 2.7"
