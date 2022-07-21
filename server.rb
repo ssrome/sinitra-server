@@ -1,13 +1,13 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
-require 'dotenv/load'
 require 'pg'
+require 'dotenv/load'
 
-connection = PG::Connection.new(
+connection = PG::Connection.open(
     :host => ENV['HOST'],
     :port => ENV['PORT'],
     :dbname => ENV['DB_NAME'],
-    :user => ENV['USER'],
+    :user => ENV['DB_USER'],
     :password => ENV['PASSWORD'])
 
 get "/:name?" do |name|
@@ -65,3 +65,29 @@ delete "/api/posts/:id" do
     return post.to_json
 end
 
+get "/api/pets-count" do
+    response = connection.exec_params("select count(*) from pets").values[0]
+    response
+end
+
+get "/api/pets/owners" do
+    response = connection.exec_params("select pets.name, owners.owner from pets join owners on owners.id = pets.owner_id").values.to_json
+    response
+end
+
+put "/api/pet" do
+    body = getBody(request)
+    owner_id = connection.exec_params("SELECT id FROM owners WHERE owner='#{body["owner"]}'").values[0][0]
+    
+    # if !owner_id
+    #     new_owner = connection.exec_params("INSERT INTO owners (owner) VALUES('#{body["owner"]}')").values
+    # end
+    response = connection.exec_params("INSERT INTO pets (name, type, gender, neutered, owner_id) VALUES ('#{body["name"]}', '#{body["type"]}', '#{body["gender"]}', '#{body["neutered"]}', '#{owner_id}')")
+    return body.to_json
+end
+
+delete "/api/pet" do
+    body = getBody(request)
+    response = connection.exec_params("DELETE FROM pets WHERE name='#{body["name"]}'")
+    return body.to_json
+end
