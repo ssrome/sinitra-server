@@ -26,7 +26,6 @@ RSpec.describe "Api" do
         end
         it "returns the pet owners" do
             get "/api/pets/owners"
-            #pets_and_owners = [["Dory", "Barbora"], ["Sasha", "Lucy"], ["Virgil", "Dom"]]
             pets_and_owners = [["Sasha", "Lucy"], ["Dory", "Barbora"], ["Virgil", "Dom"]]
             expect(last_response.body).to eq(pets_and_owners.to_json)
         end
@@ -47,20 +46,28 @@ RSpec.describe "Api" do
             expect(last_response.body).to eq(delete_body.to_json)
         end
 
-        # it "adds a pets record" do
-        #     headers = { "CONTENT_TYPE" => "application/json" }
-        #     put_body = {name: "Mulan", type: "cat", gender: "female", neutered: "yes", owner: "Stacy"}
-        #     put "/api/pet", put_body.to_json, headers
-        #     expect(last_response.status).to eq(200)
-        #     expect(last_response.body).to eq(put_body.to_json)
-        # end
+        it "adds a pets record with an unknown owner" do
+            headers = { "CONTENT_TYPE" => "application/json" }
+            put_body = {name: "Roger", type: "cat", gender: "male", neutered: "yes", owner: "Doe"}
+            put "/api/pet", put_body.to_json, headers
+            expect(last_response.status).to eq(200)
+            expect(last_response.body).to eq(put_body.to_json)
+        end
 
-        # it "deletes a pets record" do
-        #     headers = { "CONTENT_TYPE" => "application/json" }
-        #     delete_body = {name: "Mulan", type: "cat", gender: "female", neutered: "yes", owner: "Stacy"}
-        #     delete "/api/pet", delete_body.to_json, headers
-        #     expect(last_response.status).to eq(200)
-        #     expect(last_response.body).to eq(delete_body.to_json)
-        # end
+        it "deletes a pets record" do
+            headers = { "CONTENT_TYPE" => "application/json" }
+            delete_body = {name: "Roger", type: "cat", gender: "male", neutered: "yes", owner: "Doe"}
+            delete "/api/pet", delete_body.to_json, headers
+            expect(last_response.status).to eq(200)
+            expect(last_response.body).to eq(delete_body.to_json)
+        end
+
+        it "deletes an owner record" do
+            headers = { "CONTENT_TYPE" => "application/json" }
+            delete_body = {owner: "Doe"}
+            delete "/api/owner", delete_body.to_json, headers
+            expect(last_response.status).to eq(200)
+            expect(last_response.body).to eq(delete_body.to_json)
+        end
     end
 end

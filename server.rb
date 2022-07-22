@@ -77,11 +77,16 @@ end
 
 put "/api/pet" do
     body = getBody(request)
-    owner_id = connection.exec_params("SELECT id FROM owners WHERE owner='#{body["owner"]}'").values[0][0]
+    owner_found = connection.exec_params("SELECT id FROM owners WHERE owner='#{body["owner"]}'").values
     
-    # if !owner_id
-    #     new_owner = connection.exec_params("INSERT INTO owners (owner) VALUES('#{body["owner"]}')").values
-    # end
+    if owner_found.length == 0
+        connection.exec_params("INSERT INTO owners (owner) VALUES('#{body["owner"]}')")
+        new_owner = connection.exec_params("SELECT id FROM owners WHERE owner='#{body["owner"]}'").values
+        owner_id = new_owner[0][0]
+    else
+        owner_id = owner_found[0][0]
+    end
+
     response = connection.exec_params("INSERT INTO pets (name, type, gender, neutered, owner_id) VALUES ('#{body["name"]}', '#{body["type"]}', '#{body["gender"]}', '#{body["neutered"]}', '#{owner_id}')")
     return body.to_json
 end
@@ -89,5 +94,11 @@ end
 delete "/api/pet" do
     body = getBody(request)
     response = connection.exec_params("DELETE FROM pets WHERE name='#{body["name"]}'")
+    return body.to_json
+end
+
+delete "/api/owner" do
+    body = getBody(request)
+    response = connection.exec_params("DELETE FROM owners WHERE owner='#{body["owner"]}'")
     return body.to_json
 end
