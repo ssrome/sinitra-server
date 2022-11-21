@@ -10,6 +10,7 @@ jobs:
       - image: cimg/ruby:2.6.8
         environment:
           DATABASE_URL: postgresql://circleci@localhost/circle_test
+          ENV: CIRCLE
       - image: cimg/postgres:14.0
         environment:
           PGHOST: localhost
@@ -17,7 +18,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_DB: circle_test
           POSTGRES_HOST_AUTH_METHOD: trust
-          POSTGRES_PASSWORD: password
+          POSTGRES_PASSWORD: ""
     executor: ruby/default
     steps:
       - checkout
@@ -31,10 +32,8 @@ jobs:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
-          path: /tmp
           command: bundle exec rspec
       # - run:
-      #     command: bundle install --path vendor/bundle
       # command: bundle config set --local path 'vendor/bundle'
 
 workflows:
