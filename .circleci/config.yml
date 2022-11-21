@@ -27,6 +27,9 @@ jobs:
 
       - run: gem install bundler
       - run: bundle install --path vendor/bundle
+      - run:
+          name: Wait for DB
+          command: -wait tcp://localhost:5432 -timeout 1m
       - run: bundle exec rspec
       # - run:
       #     command: bundle install --path vendor/bundle
