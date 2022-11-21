@@ -22,7 +22,7 @@ jobs:
     executor: ruby/default
     steps:
       - checkout
-      - run: apt-get install -y postgresql-client
+      # - run: apt-get install -y postgresql-client
       - run:
           name: Which bundler?
           command: bundle -v
