@@ -25,6 +25,9 @@ jobs:
           command: bundle -v
 
       - run: gem install bundler
+      - run: echo ENV['PORT']
+      - run: echo PGSQL.port
+      - run: echo PGSQL.PORT
       - run: bundle install --path vendor/bundle
       - run: bundle exec rspec
       # - run:

@@ -4,10 +4,10 @@ require 'pg'
 require 'dotenv/load'
 
 connection = PG::Connection.open(
-    :host => ENV['HOST'],
-    :port => ENV['PORT'],
-    :dbname => ENV['DB_NAME'],
-    :user => ENV['DB_USER'],
+    :host => ENV['PGHOST'],
+    :port => ENV['PORT'] ? ENV['PORT'],
+    :dbname => ENV['POSTGRES_DB'],
+    :user => ENV['POSTGRES_USER'],
     :password => ENV['PASSWORD'])
 
 get "/:name?" do |name|
