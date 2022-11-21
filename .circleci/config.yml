@@ -7,16 +7,16 @@ orbs:
 jobs:
   build_and_test:
     docker:
-      # - image: cimg/ruby:2.6.8
-      #     environment:
-      #       DATABASE_URL: postgresql://circleci@localhost/circle_test
+      - image: cimg/ruby:2.6.8
+        environment:
+          DATABASE_URL: postgresql://circleci@localhost/circle_test
       - image: cimg/postgres:14.0
         environment:
           PGHOST: localhost
           PGUSER: circleci
           POSTGRES_USER: postgres
           POSTGRES_DB: circle_test
-          # POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_HOST_AUTH_METHOD: trust
           POSTGRES_PASSWORD: password
     executor: ruby/default
     steps:
@@ -30,7 +30,10 @@ jobs:
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run: bundle exec rspec
+      - run: bundle exec rake db:create
+      - run:
+          path: /tmp/
+          command: bundle exec rspec
       # - run:
       #     command: bundle install --path vendor/bundle
       # command: bundle config set --local path 'vendor/bundle'
