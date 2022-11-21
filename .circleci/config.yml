@@ -19,6 +19,8 @@ jobs:
       POSTGRES_DB: circle_test
       POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_PASSWORD: ""
+    services:
+      - postgresql
     executor: ruby/default
     steps:
       - checkout
@@ -31,6 +33,13 @@ jobs:
       - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Create schema
+          command: |
+            CREATE SCHEMA [IF NOT EXISTS] Pets
+            CREATE TABLE owners (id, owner)
+            CREATE TABLE pets (id, type, name, gender, neutered, owner_id)
+
       - run:
           command: bundle exec rspec
       # - run:
