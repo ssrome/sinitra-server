@@ -28,6 +28,8 @@ jobs:
       - run: echo ENV['PORT']
       - run: echo PGSQL.port
       - run: echo PGSQL.PORT
+      - run: echo port
+      - run: echo PORT
       - run: bundle install --path vendor/bundle
       - run: bundle exec rspec
       # - run:

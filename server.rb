@@ -5,7 +5,7 @@ require 'dotenv/load'
 
 connection = PG::Connection.open(
     :host => ENV['PGHOST'],
-    :port => ENV['PORT'] ? ENV['PORT'],
+    :port => ENV['PORT'] ? ENV['PORT'] : 5432,
     :dbname => ENV['POSTGRES_DB'],
     :user => ENV['POSTGRES_USER'],
     :password => ENV['PASSWORD'])
