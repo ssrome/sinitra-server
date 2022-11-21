@@ -8,9 +8,9 @@ jobs:
   build_and_test:
     docker:
       - image: cimg/ruby:2.6.8
-        environment:
-          DATABASE_URL: postgresql://circleci@localhost/circle_test
-      - image: cimg/postgres:14.0
+        #   environment:
+        #     DATABASE_URL: postgresql://circleci@localhost/circle_test
+        # - image: cimg/postgres:14.0
         environment:
           PGHOST: localhost
           PGUSER: circleci
