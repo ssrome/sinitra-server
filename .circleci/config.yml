@@ -34,9 +34,9 @@ jobs:
       - run:
           name: Create schema
           command: |
-            CREATE SCHEMA [IF NOT EXISTS] Pets
-            CREATE TABLE owners (id, owner)
-            CREATE TABLE pets (id, type, name, gender, neutered, owner_id)
+            - CREATE SCHEMA [IF NOT EXISTS] Pets
+            - CREATE TABLE owners (id, owner)
+            - CREATE TABLE pets (id, type, name, gender, neutered, owner_id)
 
       - run:
           command: bundle exec rspec
