@@ -17,6 +17,7 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_DB: circle_test
           POSTGRES_HOST_AUTH_METHOD: trust
+          PORT: 5432
     executor: ruby/default
     steps:
       - checkout
@@ -25,11 +26,6 @@ jobs:
           command: bundle -v
 
       - run: gem install bundler
-      - run: echo ENV['PORT']
-      - run: echo PGSQL.port
-      - run: echo PGSQL.PORT
-      - run: echo port
-      - run: echo PORT
       - run: bundle install --path vendor/bundle
       - run: bundle exec rspec
       # - run:
